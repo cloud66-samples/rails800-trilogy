@@ -1,1 +1,1 @@
-custom_web: bundle exec puma
+custom_web: bundle exec rails server
