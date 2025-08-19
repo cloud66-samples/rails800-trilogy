@@ -8,6 +8,10 @@
     </h1>
   </div>
 
+  <div>
+YJIT: <%= RubyVM::YJIT.enabled? %>
+  </div>
+
   <% flash.each do |type, message| %>
     <div class="flash flash-<%= type %>">
       <%= message %>
