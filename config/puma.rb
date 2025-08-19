@@ -10,4 +10,12 @@ workers ENV.fetch("WEB_CONCURRENCY") { 2 }
 preload_app!
 
 directory ENV.fetch("STACK_PATH") { "." }
-bind ENV.fetch("CUSTOM_WEB_SOCKET_FILE") { "unix:///tmp/web_server.sock" }
+
+socket = ENV["CUSTOM_WEB_SOCKET_FILE"]
+if socket.nil? || socket.empty?
+  bind "unix:///tmp/web_server.sock"
+elsif socket =~ /\A[a-z]+:\/\//
+  bind socket # already a full URI (unix://, tcp://, ssl://, http://, https://)
+else
+  bind "unix://#{File.expand_path(socket)}"
+end
