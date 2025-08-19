@@ -1,3 +1,8 @@
+<div>
+YJIT: <%= RubyVM::YJIT.enabled? %><br>
+CUSTOM_WEB_SOCKET_FILE: <%= ENV["CUSTOM_WEB_SOCKET_FILE"] %><br>
+</div>
+
 <div class="flowers-page">
   <div class="title-container">
     <h1>
@@ -6,10 +11,6 @@
         <%= @cache_status ? 'live 🔴' : 'cached ⚡️' %>
       </span>
     </h1>
-  </div>
-
-  <div>
-YJIT: <%= RubyVM::YJIT.enabled? %>
   </div>
 
   <% flash.each do |type, message| %>
