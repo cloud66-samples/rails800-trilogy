@@ -5,15 +5,13 @@ rails:
   servers:
   - server:
       unique_name: web1    
-      key_name: Ephemeral
 mysql:
   configuration:
     tamper_with_yml: false
     version: 8.0
   servers:
   - server:
-      unique_name: db1
-      key_name: Ephemeral
+      unique_name: db1      
 redis:
   servers:
   - server:
