@@ -1,0 +1,24 @@
+rails:
+  configuration:
+    node_version: '22'
+    ruby_version: 3.4.5
+  servers:
+  - server:
+    unique_name: web1
+    vendor: digitalocean
+    key_name: Default
+    size: s-2vcpu-4gb
+mysql:
+  configuration:
+    tamper_with_yml: false
+    version: 8.0
+  servers:
+  - server:
+    unique_name: db1
+    vendor: digitalocean
+    key_name: Default
+    size: s-2vcpu-4gb
+redis:
+  servers:
+  - server:
+    same_as: db1
