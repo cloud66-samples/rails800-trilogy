@@ -1,5 +1,13 @@
 source 'https://rubygems.org'
 
+# ruby 4.0 stdlib gems — removed or moved from default to bundled
+gem 'cgi'       # removed from stdlib, needed by rack/webrick
+gem 'ostruct'   # moved to bundled gem, needed by sshkit/kamal
+gem 'logger'    # moved to bundled gem, needed by activesupport
+gem 'benchmark' # moved to bundled gem, needed by activesupport
+gem 'irb'       # moved to bundled gem, needed by railties/debug
+gem 'rdoc'      # moved to bundled gem, needed by irb
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 8.0.3'
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
