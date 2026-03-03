@@ -16,6 +16,7 @@ default: &default
   username: <%= ENV["MYSQL_USERNAME"] %>
   password: <%= ENV["MYSQL_PASSWORD"] %>
   host: <%= ENV.fetch("MYSQL_ADDRESS") { "127.0.0.1" } %>
+  ssl_mode: "REQUIRED"
 
 development:
   <<: *default
