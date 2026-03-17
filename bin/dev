@@ -1,2 +1,17 @@
-#!/usr/bin/env ruby
-exec "./bin/rails", "server", *ARGV
+#!/usr/bin/env bash
+
+# default to port 3000 if not set
+if [ -z "$PORT" ]; then
+  export PORT=3000
+fi
+
+# check for foreman or overmind to run Procfile.dev
+if command -v overmind &> /dev/null; then
+  exec overmind start -f Procfile.dev "$@"
+elif command -v foreman &> /dev/null; then
+  exec foreman start -f Procfile.dev "$@"
+else
+  echo "Install foreman or overmind to run Procfile.dev processes."
+  echo "  gem install foreman"
+  exit 1
+fi
