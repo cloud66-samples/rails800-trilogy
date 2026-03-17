@@ -21,6 +21,11 @@ ENV RAILS_ENV=${RAILS_ENV} \
     RAILS_SERVE_STATIC_FILES="true" \
     SECRET_KEY_BASE_DUMMY="1"
 
+# Install bun for jsbundling-rails
+ARG BUN_VERSION=1.2
+RUN curl -fsSL https://bun.sh/install | bash -s "bun-v${BUN_VERSION}"
+ENV PATH="/root/.bun/bin:${PATH}"
+
 # Install base runtime packages with enhanced security
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
@@ -69,6 +74,10 @@ RUN --mount=type=cache,target=/usr/local/bundle/cache,sharing=locked \
 
 # Precompile bootsnap for gems
 RUN bundle exec bootsnap precompile --gemfile
+
+# Install JavaScript dependencies with bun
+COPY --chown=rails:rails package.json bun.lock ./
+RUN bun install --frozen-lockfile
 
 # ===========================================
 # Build stage - compile app assets and code
