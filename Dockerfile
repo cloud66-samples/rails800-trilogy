@@ -21,6 +21,10 @@ ENV RAILS_ENV=${RAILS_ENV} \
     RAILS_SERVE_STATIC_FILES="true" \
     SECRET_KEY_BASE_DUMMY="1"
 
+# Install Node.js for jsbundling-rails
+ARG NODE_VERSION=22
+RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash -
+
 # Install base runtime packages with enhanced security
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
@@ -32,6 +36,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
         dumb-init \
         libjemalloc2 \
         libvips \
+        nodejs \
         tzdata && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -69,6 +74,11 @@ RUN --mount=type=cache,target=/usr/local/bundle/cache,sharing=locked \
 
 # Precompile bootsnap for gems
 RUN bundle exec bootsnap precompile --gemfile
+
+# Install JavaScript dependencies with npm
+COPY --chown=rails:rails package.json package-lock.json ./
+RUN --mount=type=cache,target=/root/.npm,sharing=locked \
+    npm ci
 
 # ===========================================
 # Build stage - compile app assets and code
