@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby file: ".ruby-version"
+
 # ruby 4.0 stdlib gems — removed or moved from default to bundled
 gem 'cgi'       # removed from stdlib, needed by rack/webrick
 gem 'ostruct'   # moved to bundled gem, needed by sshkit/kamal
